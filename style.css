@@ -1,3 +1,5 @@
-img {
-  width: 30%;
+img,
+video {
+  height: 500px;
+  width: auto;
 }
