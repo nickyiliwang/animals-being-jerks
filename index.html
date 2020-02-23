@@ -4,16 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap"
+      rel="stylesheet"
+    />
     <title>Animals Being Jerks!</title>
   </head>
   <body>
-    <div class="renderContent">
-      <h1>Content:</h1>
-      <div class="contentContainer"></div>
-    </div>
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <header class="wrapper">
+      <h1>Animals Being Jerks!</h1>
+      <p>Vote and see which animal is more a jerk!</p>
+    </header>
+    <main>
+      <div class="videoContainer wrapper"></div>
+    </main>
+
+    <!-- firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-database.js"></script>
+    <!-- main script -->
     <script src="./script.js"></script>
   </body>
 </html>

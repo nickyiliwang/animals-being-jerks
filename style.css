@@ -1,5 +1,46 @@
-img,
-video {
+body {
+  font-family: "Slabo 27px";
+  margin-top: 20px;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+p {
+  margin: 10px;
+  font-size: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+}
+
+.wrapper {
+  max-width: 1440px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+.videoContainer {
+  position: relative;
+}
+
+.videos {
+  position: absolute;
   height: 500px;
-  width: auto;
+  width: 50%;
+  display: none;
+}
+
+.videos:nth-child(2n) {
+  right: 0px;
+}
+
+.video0,
+.video1 {
+  display: block;
 }

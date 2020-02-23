@@ -1,7 +1,7 @@
-const contentContainer = document.querySelector(".contentContainer");
+// DOM Select
+const videoContainer = document.querySelector(".videoContainer");
 
 // firebase
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyAgafThYOjVfuXW2013wdwkA_IvuSuEkRE",
   authDomain: "animalsarejerks-808e2.firebaseapp.com",
@@ -12,41 +12,52 @@ const firebaseConfig = {
   appId: "1:853121134194:web:8bd8ba39979e96cbac5ceb"
 };
 
-fetch(
-  "https://old.reddit.com/r/AnimalsBeingJerks/top.json?sort=top&t=${timeQuery}&limit=50"
-)
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// global variable
+let index = 0;
+let currentlyDisplaying = ["video0", "video1"];
+
+// api
+fetch("https://old.reddit.com/r/AnimalsBeingJerks/top.json")
   .then(response => response.json())
   .then(json => {
-    json.data.children.forEach(post => {
-      const { id, url, is_video } = post.data;
-      if (!is_video) {
-        const img = document.createElement("img");
-        img.src = url;
-        contentContainer.appendChild(img);
-      } else if (is_video) {
-        const videoUrl = post.data.media.reddit_video.fallback_url;
+    const videosOnly = json.data.children.filter(post => post.data.is_video);
+
+    videosOnly.forEach(post => {
+      const { thumbnail, id, title } = post.data;
+      const videoUrl = post.data.media.reddit_video.fallback_url;
+      const handleOnClick = e => {
+        console.log(e.target.className);
+        console.log(e.target.play());
+      };
+
+      if (videoUrl.endsWith("?source=fallback")) {
         const video = document.createElement("video");
         video.src = videoUrl;
-        video.autoplay = true;
+        video.title = title;
+        video.className = `videos video${index}`;
+        video.controls = true;
+        video.preload = "none";
+        video.autoplay = false;
+        video.poster = thumbnail;
         video.muted = true;
         video.nodeType = "video/mp4";
-        contentContainer.appendChild(video);
+        video.onclick = handleOnClick;
+        videoContainer.appendChild(video);
+        index++;
       }
     });
   });
 
-const writeData = () => {
-  firebase
-    .database()
-    .ref("animals/" + animalId)
-    .set({
-      animal: "dog",
-      animalId: "123abc",
-      url: "google.com"
-    });
+// database
+const db = firebase.database();
+const animalId = "1221122";
+
+const addUserVote = () => {
+  db.ref("animals/" + animalId).set({
+    animal: "dog",
+    animalId,
+    url: "google.com"
+  });
 };
-
-writeData();
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
